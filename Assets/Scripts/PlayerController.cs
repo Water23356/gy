@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour
 
     public float jumpForce = 8f;
 
+    private float timer = 0f;
+
+    private int jumpTimes = 1;
+
+    public JumpCheck check;
 
 
     private Rigidbody rigidbody;
@@ -31,18 +36,33 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-
             rigidbody.velocity = new Vector3(0, rigidbody.velocity.y,0);
         }
      
         if(Input.anyKey)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) && jumpTimes > 0)
             {
                 rigidbody.AddForce(Vector3.up* jumpForce, ForceMode.Impulse);
+                timer = 0.2f;
+                check.enabled = false;
+                jumpTimes--;
             }
         }
 
+        if(timer>0)
+        {
+            timer -= Time.deltaTime;
+        }
+        else
+        {
+            check.enabled = true;
+        }
+    }
+
+    public void ResetJumpTimes()
+    {
+        jumpTimes = 1;
     }
 
 }
