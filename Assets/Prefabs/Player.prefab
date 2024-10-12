@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpForce: 96
+  jumpForce: 100
   check: {fileID: 5588640490554686960}
 --- !u!114 &5217438215152013292
 MonoBehaviour:
