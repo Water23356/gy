@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147690980324095006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 5970175932710126170}
   - component: {fileID: 1578954125258326854}
   - component: {fileID: 5217438215152013292}
+  - component: {fileID: 4750082302132835548}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -283,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpForce: 32
+  jumpForce: 96
   check: {fileID: 5588640490554686960}
 --- !u!114 &5217438215152013292
 MonoBehaviour:
@@ -298,8 +299,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5548102402674229370, guid: 4ae631de57afe744384c198c58246cce, type: 3}
-  aim: {fileID: 0}
+  aim: {fileID: 5915396521665304558, guid: 009be48733f912247971d0b1bce814fb, type: 3}
   speed: 80
   cd: 0.3
   timer: 0
-  liftForce: 10
+  liftForce: 24
+--- !u!75 &4750082302132835548
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112515285378090125}
+  m_Enabled: 1
+  m_Force: {x: 0, y: -50, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
