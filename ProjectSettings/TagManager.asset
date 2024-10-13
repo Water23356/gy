@@ -7,6 +7,8 @@ TagManager:
   - ballon_wall
   - wall
   - checkPoints
+  - EnemyLand
+  - EnemySky
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Bullet
   - Ballon
   - BallonWall
-  - 
+  - Checker
   - 
   - 
   - 

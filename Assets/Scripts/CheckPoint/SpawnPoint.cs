@@ -8,19 +8,16 @@ public class SpawnPoint : MonoBehaviour
 
     private GameObject player;
 
-    private object myMesh;
+    private bool isActive = true;
+
+    private Spawner spawner;
 
     // Start is called before the first frame update
     void Start()
     {
         myPos = transform.position;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        spawner = Spawner.spawner;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,9 +26,17 @@ public class SpawnPoint : MonoBehaviour
         {
             GetComponent<MeshRenderer>().enabled = false;
 
+            ResetSpawnPoint();
+
             Debug.Log("See Player");
         }
 
+    }
 
+    public void ResetSpawnPoint()
+    {
+        isActive = false;
+
+        spawner.ResetSpawnPoint(myPos);
     }
 }
