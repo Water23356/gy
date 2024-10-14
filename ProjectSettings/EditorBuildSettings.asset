@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/HugeMap.unity
+    guid: 488feefe68084ce42a70ae8c03201668
   m_configObjects: {}
