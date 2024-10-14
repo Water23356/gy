@@ -22,14 +22,14 @@ public class Bullet:MonoBehaviour
         Agent agent = other.GetComponent<Agent>();
         if(agent!=null)
         {
-            var newBallon = GameObject.Instantiate(pregab.gameObject);
+            
+            var newBallon = BalloonPool.Instance.GetObject(); ;
             newBallon.gameObject.SetActive(true);
             newBallon.transform.position = agent.transform.position;
             newBallon.transform.localScale = Vector3.one * Mathf.Max(0.8f, liftForce/10f);
             newBallon.GetComponent<Rigidbody>().velocity = new Vector3(Random.value, Random.value, Random.value) * startVelocity;
-            var bln= newBallon.GetComponent<Balloon>();
-            bln.liftForce = liftForce;
-            bln.Combine(agent.rigidbody, lineLength);
+            newBallon.liftForce = liftForce;
+            newBallon.Combine(agent.rigidbody, lineLength);
             enabled = false;
             Destroy(gameObject);
         }

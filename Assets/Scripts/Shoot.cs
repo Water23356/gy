@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Shoot:MonoBehaviour
 {
+    public GameObject prefab;
     public Transform aim;
     public float speed = 80f;
     public float cd = 0.3f;
@@ -61,6 +62,6 @@ public class Shoot:MonoBehaviour
 
     private GameObject GetBullet()
     {
-        return BalloonPool.Instance.GetObject();
+        return GameObject.Instantiate(prefab);
     }
 }
