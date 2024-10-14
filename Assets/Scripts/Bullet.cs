@@ -8,6 +8,8 @@ public class Bullet:MonoBehaviour
 
     public float startVelocity = 3f;
 
+    public float lineLength = 5f;
+
     private void Update()
     {
         liveTime -= Time.deltaTime;
@@ -27,7 +29,7 @@ public class Bullet:MonoBehaviour
             newBallon.GetComponent<Rigidbody>().velocity = new Vector3(Random.value, Random.value, Random.value) * startVelocity;
             var bln= newBallon.GetComponent<Balloon>();
             bln.liftForce = liftForce;
-            bln.Combine(agent.rigidbody);
+            bln.Combine(agent.rigidbody, lineLength);
             enabled = false;
             Destroy(gameObject);
         }

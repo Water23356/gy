@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Shoot:MonoBehaviour
 {
-    public GameObject prefab;
     public Transform aim;
     public float speed = 80f;
     public float cd = 0.3f;
     public float timer = 0;
+
+    public float lightLength = 5f;
+    public float heavyLength = 3f;
 
     public float liftForce = 10f;
 
@@ -33,6 +35,7 @@ public class Shoot:MonoBehaviour
                 var bullet = GetBullet();
                 var ballon = bullet.GetComponent<Bullet>();
                 ballon.liftForce = liftForce;
+                ballon.lineLength = lightLength;
 
                 bullet.gameObject.SetActive(true);
                 var dir = (aim.position - transform.position).normalized;
@@ -46,6 +49,7 @@ public class Shoot:MonoBehaviour
                 var bullet = GetBullet();
                 var ballon = bullet.GetComponent<Bullet>();
                 ballon.liftForce = liftForce * -1;
+                ballon.lineLength = heavyLength;
 
                 bullet.gameObject.SetActive(true);
                 var dir = (aim.position - transform.position).normalized;
@@ -57,6 +61,6 @@ public class Shoot:MonoBehaviour
 
     private GameObject GetBullet()
     {
-        return GameObject.Instantiate(prefab);
+        return BalloonPool.Instance.GetObject();
     }
 }
