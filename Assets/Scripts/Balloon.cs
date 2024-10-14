@@ -2,49 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody),typeof(LineRenderer))]
 public class Balloon : MonoBehaviour
 {
-    public Rigidbody heavyObject; // ÖØÎïµÄ¸ÕÌå
-    public float liftForce = 10f; // ÆøÇòµÄ¸¡Á¦
+    public Rigidbody heavyObject; // é‡ç‰©çš„åˆšä½“
+    public float liftForce = 10f; // æ°”çƒçš„æµ®åŠ›
 
     public float acceleration = 10f;
 
     private Rigidbody balloonRigidbody;
 
+    private LineRenderer lineRenderer;
+
 
     private void Start()
     {
         balloonRigidbody = GetComponent<Rigidbody>();
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
-    public void Combine(Rigidbody heavyObject)
+    public void Combine(Rigidbody heavyObject,float maxDistance = 5f)
     {
         balloonRigidbody = GetComponent<Rigidbody>();
-
-        // Ìí¼Ó SpringJoint ×é¼ş²¢ÅäÖÃ
+        this.heavyObject = heavyObject;
+        // æ·»åŠ  SpringJoint ç»„ä»¶å¹¶é…ç½®
         SpringJoint joint = gameObject.AddComponent<SpringJoint>();
         joint.connectedBody = heavyObject;
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedAnchor = Vector3.zero;
         joint.minDistance = 0f;
         joint.maxDistance = 5f;
-        joint.spring = 10f; // µ¯»ÉÇ¿¶È
-        joint.damper = 0.5f; // ×èÄáÏµÊı
-        joint.minDistance = 0f; // µ¯»ÉµÄ×îĞ¡¾àÀë
+        joint.spring = 10f; // å¼¹ç°§å¼ºåº¦
+        joint.damper = 0.5f; // é˜»å°¼ç³»æ•°
+        joint.minDistance = 0f; // å¼¹ç°§çš„æœ€å°è·ç¦»
     }
 
+
+    private void Update()
+    {
+        if (heavyObject == null) return;
+        lineRenderer.SetPositions(new Vector3[] { transform.position, heavyObject.transform.position });
+    }
     void FixedUpdate()
     {
-        // Ê©¼ÓÏòÉÏµÄ¸¡Á¦
+        // æ–½åŠ å‘ä¸Šçš„æµ®åŠ›
         balloonRigidbody.AddForce(Vector3.up * liftForce, ForceMode.Force);
-
         balloonRigidbody.AddForce(-new Vector3(balloonRigidbody.velocity.x, 0, balloonRigidbody.velocity.z),ForceMode.Force);
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("ballon_wall"))
         {
-            Destroy(gameObject);
+            BalloonPool.Instance.Return(this);
         }
     }
     
