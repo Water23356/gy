@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Sky : MonoBehaviour
 {
+    public bool isDead = false;
+
+    private Spawner spawner;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        spawner = Spawner.spawner;
     }
 
     // Update is called once per frame
@@ -21,6 +25,15 @@ public class Sky : MonoBehaviour
     /// </summary>
     public void Drawn()
     {
+        isDead = true;
+    }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !isDead)
+        {
+            spawner.ReSpawn();
+        }
     }
 }
