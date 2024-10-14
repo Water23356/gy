@@ -37,6 +37,7 @@ public class BalloonPool : MonoBehaviour
         {
             used.Add(bl);
             bl.gameObject.SetActive(true);
+            bl.ResetState();
         }
         return bl;
     }

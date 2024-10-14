@@ -2,31 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody),typeof(LineRenderer))]
+[RequireComponent(typeof(Rigidbody),typeof(LineRenderer),typeof(SpringJoint))]
 public class Balloon : MonoBehaviour
 {
-    public Rigidbody heavyObject; // 重物的刚体
+    private Rigidbody heavyObject;
+    private LineRenderer m_lineRenderer;
+    private SpringJoint m_joint;
+
+    private LineRenderer lineRenderer
+    {
+        get
+        {
+            if (m_lineRenderer == null)
+                m_lineRenderer = GetComponent<LineRenderer>();
+            return m_lineRenderer;
+        }
+    }
+    private SpringJoint joint
+    {
+        get
+        {
+            if (m_joint == null)
+                m_joint = GetComponent<SpringJoint>();
+            return m_joint;
+        }
+    }
+
     public float liftForce = 10f; // 气球的浮力
 
     public float acceleration = 10f;
 
-    private Rigidbody balloonRigidbody;
+    private Rigidbody m_rigidbody;
 
-    private LineRenderer lineRenderer;
-
-
-    private void Start()
+    private Rigidbody balloonRigidbody
     {
-        balloonRigidbody = GetComponent<Rigidbody>();
-        lineRenderer = GetComponent<LineRenderer>();
+        get
+        {
+            if(m_rigidbody == null)
+                m_rigidbody=GetComponent<Rigidbody>();
+            return m_rigidbody;
+        }
     }
 
     public void Combine(Rigidbody heavyObject,float maxDistance = 5f)
     {
-        balloonRigidbody = GetComponent<Rigidbody>();
-        this.heavyObject = heavyObject;
         // 添加 SpringJoint 组件并配置
-        SpringJoint joint = gameObject.AddComponent<SpringJoint>();
+        this.heavyObject = heavyObject;
         joint.connectedBody = heavyObject;
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedAnchor = Vector3.zero;
@@ -55,6 +76,13 @@ public class Balloon : MonoBehaviour
         {
             BalloonPool.Instance.Return(this);
         }
+    }
+
+    public void ResetState()
+    {
+        heavyObject = null;
+        if(joint != null) 
+            joint.connectedBody = null;
     }
     
 }
