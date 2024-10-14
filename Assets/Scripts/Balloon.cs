@@ -53,7 +53,7 @@ public class Balloon : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ballon_wall"))
         {
-            Destroy(gameObject);
+            BalloonPool.Instance.Return(this);
         }
     }
     

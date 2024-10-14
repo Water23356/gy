@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BalloonPool : MonoBehaviour
 {
     private static BalloonPool instance;
+
     public static BalloonPool Instance
     {
         get => instance;
@@ -12,7 +12,7 @@ public class BalloonPool : MonoBehaviour
 
     private void Awake()
     {
-        if(instance!=null)
+        if (instance != null)
         {
             Destroy(this);
             return;
@@ -20,10 +20,9 @@ public class BalloonPool : MonoBehaviour
         instance = this;
     }
 
-
-
     [SerializeField]
     private GameObject prefab;
+
     [SerializeField]
     private int count = 50;
 
@@ -32,16 +31,24 @@ public class BalloonPool : MonoBehaviour
 
     public Balloon GetObject()
     {
-        var bl =queue.Dequeue();
-        used.Add(bl);
+        var bl = queue.Dequeue();
+        bl.transform.SetParent(null);
+        if (bl != null)
+        {
+            used.Add(bl);
+            bl.gameObject.SetActive(true);
+        }
         return bl;
     }
 
     public void ReturnAll()
     {
-        for(int i=0;i<used.Count;i++)
+        for (int i = 0; i < used.Count; i++)
         {
-            Return(used[i]);
+            Balloon balloon = used[i];
+            balloon.transform.SetParent(transform);
+            balloon.gameObject.SetActive(false);
+            queue.Enqueue(balloon);
         }
         used.Clear();
     }
@@ -54,16 +61,15 @@ public class BalloonPool : MonoBehaviour
         used.Remove(balloon);
     }
 
-    void Start()
+    private void Start()
     {
         int count = this.count;
-        while(count>0)
+        while (count > 0)
         {
             count--;
             var obj = GameObject.Instantiate(prefab);
-            obj.transform.SetParent(transform);
             var bl = obj.GetComponent<Balloon>();
-            queue.Enqueue(bl);
+            Return(bl);
         }
     }
 }
