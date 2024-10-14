@@ -5,12 +5,12 @@ using UnityEngine.Events;
 
 public class LavaFloor : MonoBehaviour
 {
-    public UnityEvent Death;
+    private Spawner spawner;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        spawner = Spawner.spawner;
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class LavaFloor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Death.Invoke();
+            spawner.ReSpawn();
         }
     }
 
