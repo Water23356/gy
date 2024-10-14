@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7551926732110798201, guid: 5d7a94271ee4e5d46a1693164b9792dd, type: 2}
+  - {fileID: -6363360414953564641, guid: dcfe5276067e882448ad0e5fe47e148f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,8 +101,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Tynna Jump
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7a94271ee4e5d46a1693164b9792dd, type: 2}
-  m_sharedMaterial: {fileID: -7551926732110798201, guid: 5d7a94271ee4e5d46a1693164b9792dd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dcfe5276067e882448ad0e5fe47e148f, type: 2}
+  m_sharedMaterial: {fileID: -6363360414953564641, guid: dcfe5276067e882448ad0e5fe47e148f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
