@@ -8,6 +8,8 @@ public class Sky : MonoBehaviour
 
     private Spawner spawner;
 
+    public GameObject deadBody;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,10 @@ public class Sky : MonoBehaviour
     public void Drawn()
     {
         isDead = true;
+
+        deadBody.GetComponent<MeshRenderer>().enabled = true;
+
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
 
@@ -35,5 +41,11 @@ public class Sky : MonoBehaviour
         {
             spawner.ReSpawn();
         }
+
+        else if (other.CompareTag("wall"))
+        {
+            Drawn();
+        }
     }
+
 }
